@@ -1,0 +1,45 @@
+\mode<presentation>
+
+% DEFINE THE CAMBRIDGE COLORS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{cambridgedarkblue}{RGB}{0,62,114}
+\definecolor{cambridgeblue}{RGB}{0,115,207}
+\definecolor{cambridgelightblue}{RGB}{106,173,228}
+
+\definecolor{cambridgedarkorange}{RGB}{200,78,0}
+\definecolor{cambridgeorange}{RGB}{227,114,34}
+\definecolor{cambridgelightorange}{RGB}{239,189,71}
+
+\definecolor{cambridgedarkgreen}{RGB}{67,81,37}
+\definecolor{cambridgegreen}{RGB}{88,166,24}
+\definecolor{cambridgelightgreen}{RGB}{168,180,0}
+
+% define the alert color
+\colorlet{alert}{cambridgeblue}
+
+% the text colors
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{alerted text}{fg=cambridgeblue}
+\setbeamercolor{example text}{fg=cambridgeblue}
+\setbeamercolor{structure}{fg=cambridgeblue}
+
+% background elements.
+\setbeamercolor{palette primary}{fg=white, bg=cambridgedarkblue}
+\setbeamercolor{palette secondary}{use=palette primary, fg=white, bg=palette primary.bg!50!black}
+\setbeamercolor{palette tertiary}{use=palette primary, fg=white, bg=palette primary.bg!75!black}
+\setbeamercolor{palette quaternary}{use=palette primary, fg=white, bg=black}
+
+% frame titles.
+\setbeamercolor{titlelike}{parent=palette primary}
+
+% bib colors
+\setbeamercolor{bibliography item}{fg=normal text.fg}
+\setbeamercolor{bibliography entry author}{fg=structure.fg}
+\setbeamercolor{bibliography entry title}{fg=normal text.fg}
+\setbeamercolor{bibliography entry location}{fg=normal text.fg}
+\setbeamercolor{bibliography entry note}{fg=normal text.fg}
+
+% accent colors
+\setbeamercolor{accent1}{bg=cambridgelightblue}
+\setbeamercolor{accent2}{bg=cambridgeblue}
+

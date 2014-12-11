@@ -1,0 +1,82 @@
+\ProvidesPackage{beamerthemeposter}
+
+% this style is based on I6pd created by Philippe Dreuw.
+% modifications made by Matt Hoffman.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mode<presentation>
+
+\setbeamercolor{block title}{parent={palette primary}}
+\setbeamercolor{block body}{bg=white}
+\setbeamercolor{headline}{parent={palette primary}}
+\setbeamercolor{normal text}{use={accent1}, bg=accent1.bg!60}
+
+\useinnertheme{circles}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{bibliography item}{[\theenumiv]}
+\setbeamertemplate{bibliography entry author}{}
+\setbeamertemplate{bibliography entry title}{}
+\setbeamertemplate{bibliography entry location}{}
+\setbeamertemplate{bibliography entry note}{}
+
+\setbeamerfont{bibliography item}  {size=\footnotesize}
+\setbeamerfont{bibliography entry author}  {size=\footnotesize}
+\setbeamerfont{bibliography entry title}   {shape=\itshape}
+\setbeamerfont{bibliography entry location}{shape=\upshape}
+\setbeamerfont{bibliography entry note}    {shape=\itshape}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{block begin}{
+    \begin{beamercolorbox}[rounded=true, colsep=10pt]{block title}
+        \usebeamerfont*{block title}
+        \insertblocktitle
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[rounded=true,colsep=14pt]{block body}
+    \begin{minipage}{.97\textwidth}
+}
+
+\setbeamertemplate{block end}{
+    \end{minipage}
+    \vskip0.5ex
+    \end{beamercolorbox}
+    \vskip3ex
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{headline}{
+    \begin{beamercolorbox}[wd=\paperwidth]{headline}
+    \begin{columns}[T]
+        \begin{column}{.018\paperwidth}
+        \end{column}
+        \begin{column}{.642\paperwidth}
+            \vskip5ex
+            \raggedright
+            \usebeamercolor{title in headline}
+                {\color{fg}\bf\huge\inserttitle\\[0.5ex]}
+            \usebeamercolor{author in headline}
+                {\color{fg}\Large\insertauthor\\[1ex]}
+            \usebeamercolor{institute in headline}
+                {\color{fg}\normalsize\insertinstitute\\[1ex]}
+            \vskip5ex
+        \end{column}
+        \begin{column}{.31\paperwidth}
+            \raggedleft\vskip3ex
+        \end{column}
+        \begin{column}{.02\paperwidth}
+        \end{column}
+    \end{columns}
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[ht=10pt, wd=\paperwidth]{accent2}
+    \end{beamercolorbox}%
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=north east, xshift=-30pt]
+            at (current page.north east) {\includegraphics[height=5cm]{figures/cambridge}};
+    \end{tikzpicture}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mode<all>

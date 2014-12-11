@@ -1,0 +1,102 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mwhmacros}
+
+% include some default packages.
+\RequirePackage{amsmath,amsthm,amssymb}
+\RequirePackage{algorithm,algorithmic}
+\RequirePackage{mdframed}
+\RequirePackage{bm}
+
+\@ifclassloaded{beamer}{}{
+% create a few theorem blocks, but do so only if beamer hasn't been loaded (ie
+% because beamer creates these itself).
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{definition}{Definition}
+}
+
+% redefine commands for algorithm.
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmiccomment}[1]{\bgroup\hfill\small\textsl{#1}\egroup}
+
+
+% box-like environments.
+\newmdenv[skipabove=1em]{framed}
+
+% undefine commands we're going to replace.
+\let\vec\undefined
+\let\H\undefined
+
+% common sets and operators.
+\def\R{\mathbb{R}}
+\def\N{\mathbb{N}}
+\def\Z{\mathbb{Z}}
+
+% common vectors.
+\def\zero{\mathbf{0}}
+\def\one{\mathbf{1}}
+
+% transposes.
+\def\T{^\mathsf{T}}
+\def\nT{^{-\mathsf{T}}}
+\def\inv{^{-1}}
+
+% derivatives.
+\newcommand{\dd}[2][]{%
+\ifx#1\tfrac{\hphantom{#2}\mathrm{d}}{\mathrm{d} #2}\else%
+      \tfrac{\hphantom{#2}\mathrm{d}^{#1}}{\mathrm{d} #2^{#1}}}
+
+\newcommand{\dv }[2][]{\tfrac{\partial #1}{\partial #2}}
+\newcommand{\dvv}[3][]{\tfrac{\partial^2 #1}{\partial #2 \partial #3}}
+\def\d{\,\mathrm{d}}
+
+% argmax/min operators.
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+% expectation/variance/etc.
+\DeclareMathOperator{\I}{\mathbb{I}}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\H}{H}
+\DeclareMathOperator{\var}{var}
+\DeclareMathOperator{\cov}{cov}
+
+% matrix operations.
+\DeclareMathOperator{\vec}{vec}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\upper}{upper}
+
+\newcommand{\Array}[1]{\left[\begin{matrix}#1\end{matrix}\right]}
+
+% common distributions.
+\DeclareMathOperator{\Normal   }{\mathcal{N}}
+\DeclareMathOperator{\Uniform  }{\mathcal{U}}
+\DeclareMathOperator{\Beta     }{\mathrm{Beta}}
+\DeclareMathOperator{\Bernoulli}{\mathrm{Bernoulli}}
+\DeclareMathOperator{\Dir      }{\mathrm{Dir}}
+\DeclareMathOperator{\GP       }{\mathrm{GP}}
+
+% list of vectorized quantities
+\def\@CAL#1{\expandafter\def\csname cal#1\endcsname{\mathcal{#1}}}
+\def\@VEC#1{\expandafter\def\csname v#1\endcsname{\mathbf{#1}}}
+\def\@BGR#1{\expandafter\def\csname v#1\endcsname{\boldsymbol{\csname#1\endcsname}}}
+
+\def\@cal#1{\ifx#1\@cal\else\@CAL#1\expandafter\@cal\fi}
+\def\@vec#1{\ifx#1\@vec\else\@VEC#1\expandafter\@vec\fi}
+\def\@bgr#1{\ifx\@bgr#1\else\@BGR{#1}\expandafter\@bgr\fi}
+
+\@vec abcdefghijklmnopqrstuvwxyz\@vec
+\@vec ABCDEFGHIJKLMNOPQRSTUVWXYZ\@vec
+\@cal ABCDEFGHIJKLMNOPQRSTUVWXYZ\@cal
+
+\@bgr
+% lowercase greek symbols
+{alpha}{beta}{gamma}{delta}{epsilon}{zeta}{eta}{theta}{gamma}{kappa}{lambda}{mu}
+{nu}{xi}{pi}{rho}{sigma}{tau}{phi}{chi}{psi}{omega}
+% uppercase greek
+{Gamma}{Delta}{Theta}{Lambda}{Xi}{Pi}{Sigma}{Upsilon}{Phi}{Psi}{Omega}
+% various other symbols
+{ell}
+\@bgr
+
