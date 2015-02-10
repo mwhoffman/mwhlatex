@@ -4,58 +4,52 @@
 
 \useinnertheme{circles}
 
-\setbeamersize{text margin left=10pt}
-\setbeamersize{text margin right=10pt}
+\setbeamersize{text margin left=15pt}
+\setbeamersize{text margin right=15pt}
 
 \setbeamerfont{structure}{series=\bfseries, size=\Large}
-\setbeamerfont{framesubtitle}{series=\mdseries, shape=\slshape, size=\small}
-\setbeamerfont{subtitle}{series=\mdseries, shape=\slshape, size=\small}
+\setbeamerfont{framesubtitle}{series=\mdseries, size=\small}
+\setbeamerfont{subtitle}{series=\mdseries, size=\small}
 \setbeamerfont{alerted text}{series=\bfseries}
 
-% get rid of the hrule for footnotes and move them to the right
-\renewcommand*\footnoterule{}
-\setbeamertemplate{footnote}{%
-    \parindent 1em\noindent%
-    \raggedleft
-    {\insertfootnotemark\insertfootnotetext\par}}
-
-% get rid of navigation symbols.
+% get rid of navigation symbols, headline, and footline
 \setbeamertemplate{navigation symbols}{}
-
-% no headline/footline.
 \setbeamertemplate{headline}{}
 \setbeamertemplate{footline}{}
 
-% update the title
-\setbeamertemplate{frametitle}{
-    \nointerlineskip%
-    \@tempdima=\textwidth%
-    \advance\@tempdima by\beamer@leftmargin%
-    \advance\@tempdima by\beamer@rightmargin%
-    \begin{beamercolorbox}[sep=\beamer@leftmargin, wd=\the\@tempdima]{frametitle}
-        \par\vspace{-5pt}%
-        \insertframetitle%
-        \ifx\insertframesubtitle\@empty\else{%
-            \par%
-            \vspace{-5pt}
-            \usebeamerfont{framesubtitle}\insertframesubtitle}%
+% template for each frame title
+\setbeamertemplate{frametitle}
+{
+    \nointerlineskip
+    \begin{beamercolorbox}[wd=\paperwidth,
+                           leftskip=\beamer@leftmargin,
+                           rightskip=\beamer@rightmargin]{frametitle}
+        \vskip3px
+        \strut\insertframetitle\strut\par
+        \ifx\insertframesubtitle\@empty\else{
+            \usebeamerfont{framesubtitle}
+            \usebeamercolor[fg]{framesubtitle}
+            \insertframesubtitle\strut\par}%
         \fi
-    \end{beamercolorbox}%
-    \nointerlineskip%
-    \begin{beamercolorbox}[ht=3pt, wd=\the\@tempdima]{accent1}%
-    \end{beamercolorbox}}
+        \vskip3px
+    \end{beamercolorbox}
+    \ifbeamercolorempty[bg]{accent}{}{
+        \nointerlineskip
+        \begin{beamercolorbox}[ht=3pt, wd=\paperwidth]{accent}
+        \end{beamercolorbox}}
+}
 
-\setbeamertemplate{title page}{%
-    \vspace{-1em}%
+\setbeamertemplate{title page}
+{
+    \vskip-1em
     \nointerlineskip%
-    \@tempdima=\textwidth%
-    \advance\@tempdima by\beamer@leftmargin%
-    \advance\@tempdima by\beamer@rightmargin%
-    \begin{beamercolorbox}[sep=\beamer@leftmargin, wd=\the\@tempdima]{title}
-        \vskip1em\par
+    \begin{beamercolorbox}[wd=\paperwidth,
+                           leftskip=\beamer@leftmargin,
+                           rightskip=\beamer@rightmargin]{title}
+        \vskip1em
         {\usebeamerfont{title}\inserttitle\par}%
         \ifx\insertsubtitle\@empty\else%
-            {\usebeamerfont{subtitle}\insertsubtitle\par}
+        {\usebeamerfont{subtitle}\insertsubtitle\par}
         \fi%
         \vskip1em\par
         {\usebeamerfont{author}\insertauthor\par}
@@ -64,14 +58,41 @@
         {\usebeamerfont{date}\insertdate\par}
         \vskip0.5em
     \end{beamercolorbox}
-    \nointerlineskip%
-    \begin{beamercolorbox}[ht=3pt, wd=\the\@tempdima]{accent2}%
-    \end{beamercolorbox}%
-    \nointerlineskip%
-    \begin{beamercolorbox}[ht=200pt, wd=\the\@tempdima]{accent1}%
-    \end{beamercolorbox}%
-    \begin{tikzpicture}[remember picture,overlay]
-        \node[anchor=south west, yshift=8pt]
-        at (current page.south west) {\insertlogo};
-    \end{tikzpicture}}
+    \nointerlineskip
+    \begin{beamercolorbox}[ht=3pt, wd=\paperwidth]{accent2}
+    \end{beamercolorbox}
+    \nointerlineskip
+    \begin{beamercolorbox}[ht=\paperheight, wd=\paperwidth]{accent}
+    \end{beamercolorbox}
+}
 
+%\setbeamertemplate{title page}{%
+%    \vspace{-1em}%
+%    \nointerlineskip%
+%    \@tempdima=\textwidth%
+%    \advance\@tempdima by\beamer@leftmargin%
+%    \advance\@tempdima by\beamer@rightmargin%
+%    \begin{beamercolorbox}[sep=\beamer@leftmargin, wd=\the\@tempdima]{title}
+%        \vskip1em\par
+%        {\usebeamerfont{title}\inserttitle\par}%
+%        \ifx\insertsubtitle\@empty\else%
+%            {\usebeamerfont{subtitle}\insertsubtitle\par}
+%        \fi%
+%        \vskip1em\par
+%        {\usebeamerfont{author}\insertauthor\par}
+%        {\usebeamerfont{institute}\insertinstitute\par}
+%        \vskip0.5em\par
+%        {\usebeamerfont{date}\insertdate\par}
+%        \vskip0.5em
+%    \end{beamercolorbox}
+%    \nointerlineskip%
+%    \begin{beamercolorbox}[ht=3pt, wd=\the\@tempdima]{accent2}%
+%    \end{beamercolorbox}%
+%    \nointerlineskip%
+%    \begin{beamercolorbox}[ht=200pt, wd=\the\@tempdima]{accent1}%
+%    \end{beamercolorbox}%
+%    \begin{tikzpicture}[remember picture,overlay]
+%        \node[anchor=south west, yshift=8pt]
+%        at (current page.south west) {\insertlogo};
+%    \end{tikzpicture}}
+%
