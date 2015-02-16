@@ -10,9 +10,10 @@
 \setbeamerfont{structure}{series=\bfseries, size=\Large}
 \setbeamerfont{framesubtitle}{series=\mdseries, size=\small}
 \setbeamerfont{subtitle}{series=\mdseries, size=\small}
+\setbeamerfont{footline}{series=\mdseries, size=\tiny}
 \setbeamerfont{alerted text}{series=\bfseries}
 
-% get rid of navigation symbols, headline, and footline
+% get rid of navigation symbols and headline
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{headline}{}
 \setbeamertemplate{footline}{}
@@ -23,13 +24,13 @@
     \nointerlineskip
     \begin{beamercolorbox}[wd=\paperwidth,
                            leftskip=\beamer@leftmargin,
-                           rightskip=\beamer@rightmargin]{frametitle}
+                           ]{frametitle}
         \vskip3px
         \strut\insertframetitle\strut\par
         \ifx\insertframesubtitle\@empty\else{
             \usebeamerfont{framesubtitle}
             \usebeamercolor[fg]{framesubtitle}
-            \insertframesubtitle\strut\par}%
+            \insertframesubtitle\strut\par}
         \fi
         \vskip3px
     \end{beamercolorbox}
@@ -39,60 +40,33 @@
         \end{beamercolorbox}}
 }
 
+% template for the title page
 \setbeamertemplate{title page}
 {
-    \vskip-1em
-    \nointerlineskip%
+    \nointerlineskip
+    \vskip-6px
     \begin{beamercolorbox}[wd=\paperwidth,
                            leftskip=\beamer@leftmargin,
-                           rightskip=\beamer@rightmargin]{title}
-        \vskip1em
-        {\usebeamerfont{title}\inserttitle\par}%
-        \ifx\insertsubtitle\@empty\else%
-        {\usebeamerfont{subtitle}\insertsubtitle\par}
-        \fi%
+                           ]{title}
+        \vskip7.75px
+        {\usebeamerfont{title}\inserttitle}\par
+        \ifx\insertsubtitle\@empty\else
+        {\usebeamerfont{subtitle}\insertsubtitle}\par
+        \fi
         \vskip1em\par
-        {\usebeamerfont{author}\insertauthor\par}
-        {\usebeamerfont{institute}\insertinstitute\par}
+        {\usebeamerfont{author}\insertauthor}\par
+        {\usebeamerfont{institute}\insertinstitute}\par
         \vskip0.5em\par
-        {\usebeamerfont{date}\insertdate\par}
+        {\usebeamerfont{date}\insertdate}\par
         \vskip0.5em
     \end{beamercolorbox}
-    \nointerlineskip
-    \begin{beamercolorbox}[ht=3pt, wd=\paperwidth]{accent2}
-    \end{beamercolorbox}
-    \nointerlineskip
-    \begin{beamercolorbox}[ht=\paperheight, wd=\paperwidth]{accent}
-    \end{beamercolorbox}
+    \ifbeamercolorempty[bg]{accent2}{}{
+        \nointerlineskip
+        \begin{beamercolorbox}[ht=3pt, wd=\paperwidth]{accent2}
+        \end{beamercolorbox}}
+    \ifbeamercolorempty[bg]{accent}{}{
+        \nointerlineskip
+        \begin{beamercolorbox}[ht=\paperheight, wd=\paperwidth]{accent}
+        \end{beamercolorbox}}
 }
 
-%\setbeamertemplate{title page}{%
-%    \vspace{-1em}%
-%    \nointerlineskip%
-%    \@tempdima=\textwidth%
-%    \advance\@tempdima by\beamer@leftmargin%
-%    \advance\@tempdima by\beamer@rightmargin%
-%    \begin{beamercolorbox}[sep=\beamer@leftmargin, wd=\the\@tempdima]{title}
-%        \vskip1em\par
-%        {\usebeamerfont{title}\inserttitle\par}%
-%        \ifx\insertsubtitle\@empty\else%
-%            {\usebeamerfont{subtitle}\insertsubtitle\par}
-%        \fi%
-%        \vskip1em\par
-%        {\usebeamerfont{author}\insertauthor\par}
-%        {\usebeamerfont{institute}\insertinstitute\par}
-%        \vskip0.5em\par
-%        {\usebeamerfont{date}\insertdate\par}
-%        \vskip0.5em
-%    \end{beamercolorbox}
-%    \nointerlineskip%
-%    \begin{beamercolorbox}[ht=3pt, wd=\the\@tempdima]{accent2}%
-%    \end{beamercolorbox}%
-%    \nointerlineskip%
-%    \begin{beamercolorbox}[ht=200pt, wd=\the\@tempdima]{accent1}%
-%    \end{beamercolorbox}%
-%    \begin{tikzpicture}[remember picture,overlay]
-%        \node[anchor=south west, yshift=8pt]
-%        at (current page.south west) {\insertlogo};
-%    \end{tikzpicture}}
-%

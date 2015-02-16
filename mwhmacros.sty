@@ -38,6 +38,7 @@
 \def\one{\mathbf{1}}
 
 % transposes.
+\def\i{^{i}}
 \def\T{^\mathsf{T}}
 \def\nT{^{-\mathsf{T}}}
 \def\inv{^{-1}}
@@ -61,8 +62,10 @@
 \DeclareMathOperator{\H}{H}
 \DeclareMathOperator{\var}{var}
 \DeclareMathOperator{\cov}{cov}
+\DeclareMathOperator{\corr}{corr}
 
 % matrix operations.
+\DeclareMathOperator{\tr}{tr}
 \DeclareMathOperator{\vec}{vec}
 \DeclareMathOperator{\diag}{diag}
 \DeclareMathOperator{\upper}{upper}
@@ -80,7 +83,7 @@
 % list of vectorized quantities
 \def\@CAL#1{\expandafter\def\csname cal#1\endcsname{\mathcal{#1}}}
 \def\@VEC#1{\expandafter\def\csname v#1\endcsname{\mathbf{#1}}}
-\def\@BGR#1{\expandafter\def\csname v#1\endcsname{\boldsymbol{\csname#1\endcsname}}}
+\def\@BGR#1{\expandafter\def\csname v#1\endcsname{{\boldsymbol{\csname#1\endcsname}}}}
 
 \def\@cal#1{\ifx#1\@cal\else\@CAL#1\expandafter\@cal\fi}
 \def\@vec#1{\ifx#1\@vec\else\@VEC#1\expandafter\@vec\fi}
