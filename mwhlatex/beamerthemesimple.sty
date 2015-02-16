@@ -22,16 +22,20 @@
 \setbeamertemplate{frametitle}
 {
     \nointerlineskip
-    \begin{beamercolorbox}[wd=\paperwidth,
-                           leftskip=\beamer@leftmargin,
-                           ]{frametitle}
-        \vskip3px
-        \strut\insertframetitle\strut\par
-        \ifx\insertframesubtitle\@empty\else{
-            \usebeamerfont{framesubtitle}
-            \usebeamercolor[fg]{framesubtitle}
-            \insertframesubtitle\strut\par}
-        \fi
+    \@tempdima=\paperwidth
+    \advance\@tempdima by -\beamer@leftmargin
+    \advance\@tempdima by -\beamer@rightmargin
+    \begin{beamercolorbox}[wd=\paperwidth]{frametitle}
+        \vskip4px
+        \hskip\beamer@leftmargin
+        \begin{minipage}{\the\@tempdima}
+            \strut\insertframetitle\strut\par
+            \ifx\insertframesubtitle\@empty\else{
+                \usebeamerfont{framesubtitle}
+                \usebeamercolor[fg]{framesubtitle}
+                \insertframesubtitle\strut\par}
+            \fi
+        \end{minipage}
         \vskip3px
     \end{beamercolorbox}
     \ifbeamercolorempty[bg]{accent}{}{
@@ -45,21 +49,26 @@
 {
     \nointerlineskip
     \vskip-6px
-    \begin{beamercolorbox}[wd=\paperwidth,
-                           leftskip=\beamer@leftmargin,
-                           rightskip=\beamer@rightmargin,
-                           ]{title}
-        \vskip7.75px
-        {\usebeamerfont{title}\inserttitle}\par
-        \ifx\insertsubtitle\@empty\else
-        {\usebeamerfont{subtitle}\insertsubtitle}\par
-        \fi
-        \vskip1em\par
-        {\usebeamerfont{author}\insertauthor}\par
-        {\usebeamerfont{institute}\insertinstitute}\par
-        \vskip0.5em\par
-        {\usebeamerfont{date}\insertdate}\par
-        \vskip0.5em
+    \@tempdima=\paperwidth
+    \advance\@tempdima by -\beamer@leftmargin
+    \advance\@tempdima by -\beamer@rightmargin
+    \begin{beamercolorbox}[wd=\paperwidth]{title}
+        \vskip10px
+        \hskip\beamer@leftmargin
+        \begin{minipage}{\the\@tempdima}
+            \raggedright
+            {\usebeamerfont{title}\inserttitle}\par
+            \ifx\insertsubtitle\@empty\else
+            {\usebeamerfont{subtitle}\insertsubtitle}\par
+            \fi
+            \vskip1em\par
+            {\usebeamerfont{author}\insertauthor}
+            \vskip-0.25em
+            {\usebeamerfont{institute}\insertinstitute}\par
+            \vskip1em\par
+            {\usebeamerfont{date}\insertdate}\par
+        \end{minipage}
+        \vskip8px
     \end{beamercolorbox}
     \ifbeamercolorempty[bg]{accent2}{}{
         \nointerlineskip
