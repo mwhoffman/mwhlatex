@@ -1,0 +1,46 @@
+\documentclass[t]{beamer}
+
+\usetheme{simple}
+\usecolortheme{cambridge}
+
+\title{Example Beamer template using the \texttt{simple} theme and Cambridge
+colors}
+\subtitle{with subtitles and more!}
+\author[M.W.Hoffman]{Matthew W.~Hoffman}
+\institute[Cambridge]{University of Cambridge}
+
+\usepackage[numbers]{natbib}
+\bibliographystyle{abbrvnat}
+\setcitestyle{authoryear}
+
+\newcommand{\foot}[1]{
+    \tikz[overlay,remember picture]
+    \node[opacity=0.3, at=(current page.south east), anchor=south east]
+    {\footnotesize #1};
+}
+
+%==============================================================================
+\begin{document}
+\maketitle
+
+\begin{frame}
+    \frametitle{The first slide}
+    \framesubtitle{with a subtitle}
+
+    Here is some text
+    \begin{itemize}
+        \item and one item
+        \item and another
+    \end{itemize}
+
+    \vspace{1em}
+    Here is some slightly longer text to make sure that it extends nicely to 
+    the right margin,
+    \begin{enumerate}
+        \item and lets enumerate this time
+        \item and add one more
+    \end{enumerate}
+\end{frame}
+
+%==============================================================================
+\end{document}
