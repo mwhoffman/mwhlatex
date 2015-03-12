@@ -7,10 +7,11 @@
 \setbeamersize{text margin left=15pt}
 \setbeamersize{text margin right=15pt}
 
-\setbeamerfont{structure}{series=\bfseries, size=\Large}
 \setbeamerfont{framesubtitle}{series=\mdseries, size=\small}
 \setbeamerfont{subtitle}{series=\mdseries, size=\small}
 \setbeamerfont{footline}{series=\mdseries, size=\tiny}
+
+\setbeamerfont{structure}{series=\bfseries}
 \setbeamerfont{alerted text}{series=\bfseries}
 
 % get rid of navigation symbols and headline
@@ -18,15 +19,24 @@
 \setbeamertemplate{headline}{}
 \setbeamertemplate{footline}{}
 
+\newcommand{\authornote}[1]{\def\insertauthornote{#1}}
+\authornote{}
+
+% make the title frame and don't do any numbering on that frame.
+\def\maketitle{
+\ifbeamer@inframe
+    \titlepage\else
+    \frame[plain, noframenumbering]{\titlepage}
+\fi}
+
 % template for each frame title
-\setbeamertemplate{frametitle}
-{
+\setbeamertemplate{frametitle}{
     \nointerlineskip
     \@tempdima=\paperwidth
     \advance\@tempdima by -\beamer@leftmargin
     \advance\@tempdima by -\beamer@rightmargin
     \begin{beamercolorbox}[wd=\paperwidth]{frametitle}
-        \vskip4px
+        \vskip2px
         \hskip\beamer@leftmargin
         \begin{minipage}{\the\@tempdima}
             \strut\insertframetitle\strut\par
@@ -41,19 +51,35 @@
     \ifbeamercolorempty[bg]{accent}{}{
         \nointerlineskip
         \begin{beamercolorbox}[ht=3pt, wd=\paperwidth]{accent}
-        \end{beamercolorbox}}
-}
+        \end{beamercolorbox}}}
+
+\setbeamertemplate{footline}{
+    \tikz[overlay, remember picture]
+    \node[opacity=0.3, 
+          at=(current page.south east),
+          anchor=south east]
+    {\insertframenumber/\inserttotalframenumber};}
+
+\newcommand{\foot}[1]{
+    \only<1->{
+    \tikz[overlay, remember picture]
+    \node[opacity=0.5, 
+          at=(current page.south west),
+          align=left,
+          xshift=\beamer@leftmargin,
+          inner xsep=0pt,
+          anchor=south west]
+    {\usebeamerfont{footline}{#1}};}}
 
 % template for the title page
-\setbeamertemplate{title page}
-{
+\setbeamertemplate{title page}{
     \nointerlineskip
     \vskip-6px
     \@tempdima=\paperwidth
     \advance\@tempdima by -\beamer@leftmargin
     \advance\@tempdima by -\beamer@rightmargin
     \begin{beamercolorbox}[wd=\paperwidth]{title}
-        \vskip10px
+        \vskip20px
         \hskip\beamer@leftmargin
         \begin{minipage}{\the\@tempdima}
             \raggedright
@@ -62,13 +88,12 @@
             {\usebeamerfont{subtitle}\insertsubtitle}\par
             \fi
             \vskip1em\par
-            {\usebeamerfont{author}\insertauthor}
-            \vskip-0.25em
-            {\usebeamerfont{institute}\insertinstitute}\par
+            {\usebeamerfont{author}\insertauthor}\par
+            {\usebeamerfont{institute}\insertauthornote}\par
             \vskip1em\par
             {\usebeamerfont{date}\insertdate}\par
         \end{minipage}
-        \vskip8px
+        \vskip30px
     \end{beamercolorbox}
     \ifbeamercolorempty[bg]{accent2}{}{
         \nointerlineskip
@@ -78,5 +103,31 @@
         \nointerlineskip
         \begin{beamercolorbox}[ht=\paperheight, wd=\paperwidth]{accent}
         \end{beamercolorbox}}
+    \begin{tikzpicture}[remember picture, overlay]
+        \node[anchor=south west, xshift=\beamer@leftmargin,
+                                 yshift=\beamer@leftmargin] 
+        at (current page.south west) {\insertlogo};
+    \end{tikzpicture}}
+
+\makeatletter
+\let\appendixorig\appendix
+\def\mainend{-1}
+
+\def\appendix{
+  \edef\mainend{\theframenumber}
+  \immediate\write\@auxout{\string\global\string\@namedef{mainendframenumber}{\mainend}}
+  \appendixorig
 }
+
+\def\pageatend{
+  \ifnum\mainend>0%
+  \immediate\write\@auxout{\string\global\string\@namedef{inserttotalframenumber}{\mainend}}%
+  \immediate\write\@auxout{\string\@writefile{nav}{\noexpand \headcommand {%
+        \noexpand \def\noexpand \inserttotalframenumber{\mainend}}}}%
+  \else
+  \fi
+}
+
+\AtEndDocument{\pageatend}
+\makeatother
 
