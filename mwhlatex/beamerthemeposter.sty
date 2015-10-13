@@ -9,7 +9,7 @@
 \setbeamercolor{block title}{parent={palette primary}}
 \setbeamercolor{block body}{bg=white}
 \setbeamercolor{headline}{parent={palette primary}}
-\setbeamercolor{normal text}{use={accent1}, bg=accent1.bg!60}
+\setbeamercolor{normal text}{use={accent}, bg=accent.bg!60}
 
 \useinnertheme{circles}
 
@@ -47,20 +47,19 @@
 \setbeamertemplate{headline}{
     \begin{beamercolorbox}[wd=\paperwidth]{headline}
     \begin{columns}[T]
-        \begin{column}{.018\paperwidth}
+        \begin{column}{.02\paperwidth}
         \end{column}
-        \begin{column}{.642\paperwidth}
-            \vskip5ex
+        \begin{column}{.75\paperwidth}
+            \vskip10ex
             \raggedright
-            \usebeamercolor{title in headline}
-                {\color{fg}\bf\huge\inserttitle\\[0.5ex]}
-            \usebeamercolor{author in headline}
-                {\color{fg}\Large\insertauthor\\[1ex]}
-            \usebeamercolor{institute in headline}
-                {\color{fg}\normalsize\insertinstitute\\[1ex]}
-            \vskip5ex
+            \usebeamercolor{title in headline}{\color{fg}\bf\huge\inserttitle}\par
+            \bigskip\bigskip
+            \usebeamercolor{author in headline}{\color{fg}\large\insertauthor}\par
+            \bigskip\bigskip
+            \usebeamercolor{institute in headline}{\color{fg}\large\insertinstitute}\par
+            \bigskip\bigskip
         \end{column}
-        \begin{column}{.31\paperwidth}
+        \begin{column}{.21\paperwidth}
             \raggedleft\vskip3ex
         \end{column}
         \begin{column}{.02\paperwidth}
@@ -69,10 +68,7 @@
     \end{beamercolorbox}
     \begin{beamercolorbox}[ht=10pt, wd=\paperwidth]{accent2}
     \end{beamercolorbox}%
-    \begin{tikzpicture}[remember picture,overlay]
-        \node[anchor=north east, xshift=-30pt]
-            at (current page.north east) {\includegraphics[height=5cm]{figures/cambridge}};
-    \end{tikzpicture}}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setbeamertemplate{navigation symbols}{}

@@ -29,6 +29,19 @@
     \frame[plain, noframenumbering]{\titlepage}
 \fi}
 
+\AtBeginSection[]{%
+\ifnumcomp{\value{section}}{=}{1}
+    {}%
+    {{%
+    \setbeamertemplate{footline}{}
+    \setbeamercolor{background canvas}{bg=frametitle.bg}
+    \begin{frame}[noframenumbering, c]
+        \begin{center}
+        \usebeamercolor[fg]{frametitle}
+        \Huge \insertsection
+        \end{center}
+    \end{frame}}}}
+
 % template for each frame title
 \setbeamertemplate{frametitle}{
     \nointerlineskip
@@ -56,9 +69,16 @@
 \setbeamertemplate{footline}{
     \tikz[overlay, remember picture]
     \node[opacity=0.3, 
+          name=pageno, 
           at=(current page.south east),
           anchor=south east]
     {\insertframenumber/\inserttotalframenumber};}
+
+\newcommand{\footright}[1]{
+    \tikz[overlay, remember picture]
+    \node[opacity=0.3, 
+          at=(pageno.west),
+          anchor=east, xshift=4pt, yshift=0.5pt]{#1};}
 
 \newcommand{\foot}[1]{
     \only<1->{
@@ -90,6 +110,7 @@
             \vskip1em\par
             {\usebeamerfont{author}\insertauthor}\par
             {\usebeamerfont{institute}\insertauthornote}\par
+            {\usebeamerfont{institute}\insertinstitute}\par
             \vskip1em\par
             {\usebeamerfont{date}\insertdate}\par
         \end{minipage}
@@ -103,11 +124,12 @@
         \nointerlineskip
         \begin{beamercolorbox}[ht=\paperheight, wd=\paperwidth]{accent}
         \end{beamercolorbox}}
-    \begin{tikzpicture}[remember picture, overlay]
-        \node[anchor=south west, xshift=\beamer@leftmargin,
-                                 yshift=\beamer@leftmargin] 
-        at (current page.south west) {\insertlogo};
-    \end{tikzpicture}}
+    %\begin{tikzpicture}[remember picture, overlay]
+    %    \node[anchor=south west, xshift=\beamer@leftmargin,
+    %                             yshift=\beamer@leftmargin] 
+    %    at (current page.south west) {\includegraphics[trim=31px 0 0 0, clip=true, height=1.2cm]{figures/cambridge}};
+    %\end{tikzpicture}
+}
 
 \makeatletter
 \let\appendixorig\appendix
