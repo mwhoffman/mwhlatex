@@ -1,7 +1,5 @@
 \mode<presentation>
 
-\RequirePackage{tikz}
-
 \useinnertheme{circles}
 
 \setbeamersize{text margin left=15pt}
@@ -10,146 +8,145 @@
 \setbeamerfont{framesubtitle}{series=\mdseries, size=\small}
 \setbeamerfont{subtitle}{series=\mdseries, size=\small}
 \setbeamerfont{footline}{series=\mdseries, size=\tiny}
+\setbeamerfont{footnote}{series=\mdseries, size=\tiny}
 
 \setbeamerfont{structure}{series=\bfseries}
 \setbeamerfont{alerted text}{series=\bfseries}
 
-% get rid of navigation symbols and headline
-\setbeamertemplate{navigation symbols}{}
-\setbeamertemplate{headline}{}
-\setbeamertemplate{footline}{}
+%==============================================================================
+% Redefine maketitle such that the title frame does not have any numbering.
+%==============================================================================
+
+\def\maketitle{
+    \ifbeamer@inframe
+        \titlepage
+    \else
+        \frame[plain, noframenumbering]{\titlepage}
+    \fi}
+
+%==============================================================================
+% Add a new metadata macro.
+%==============================================================================
 
 \newcommand{\authornote}[1]{\def\insertauthornote{#1}}
 \authornote{}
 
-% make the title frame and don't do any numbering on that frame.
-\def\maketitle{
-\ifbeamer@inframe
-    \titlepage\else
-    \frame[plain, noframenumbering]{\titlepage}
-\fi}
+%==============================================================================
+% Define minimal header and footer lines. These eliminate the navigation
+% symbols and include only the frame number and total number of frames.
+%==============================================================================
 
-\AtBeginSection[]{%
-\ifnumcomp{\value{section}}{=}{1}
-    {}%
-    {{%
-    \setbeamertemplate{footline}{}
-    \setbeamercolor{background canvas}{bg=frametitle.bg}
-    \begin{frame}[noframenumbering, c]
-        \begin{center}
-        \usebeamercolor[fg]{frametitle}
-        \Huge \insertsection
-        \end{center}
-    \end{frame}}}}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{sidebar right}{}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{footline}{%
+    \hfill%
+    \smash{\insertframenumber/\inserttotalframenumber\;}%
+    \vskip2pt}
 
-% template for each frame title
+% by default the footnoterule template contains the logo. this just makes it so
+% that the logo only appears on the title page.
+\renewcommand{\footnoterule}{}
+
+%==============================================================================
+% Define the title page template.
+%==============================================================================
+
+\setbeamertemplate{title page}{
+    \nointerlineskip
+    \vskip-8px
+    \@tempdima=\paperwidth
+    \advance\@tempdima by -\beamer@leftmargin
+    \advance\@tempdima by -\beamer@rightmargin
+    \begin{beamercolorbox}[ht=0.5\paperheight, wd=\paperwidth]{title}%
+        \vbox to 0.5\paperheight{
+        \vfil\hskip\beamer@leftmargin
+        \parbox{\@tempdima}{
+            \raggedright
+            {\usebeamerfont{title}\inserttitle}\par
+            \ifx\insertsubtitle\@empty\else
+                {\usebeamerfont{subtitle}\insertsubtitle}\par
+            \fi
+            \vskip1em\par
+            {\usebeamerfont{author}\insertauthor}\par
+            \nointerlineskip\vskip0.4em
+            {\usebeamerfont{institute}\insertinstitute}\par
+            \ifx\insertauthornote\@empty\else
+                \nointerlineskip\vskip0.4em
+                {\usebeamerfont{institute}\insertauthornote}\par
+            \fi
+            \vskip1em\par
+            {\usebeamerfont{date}\insertdate}}
+            \vfil}
+    \end{beamercolorbox}
+    \nointerlineskip
+    \begin{beamercolorbox}[ht=3pt, wd=\paperwidth]{accent2}
+    \end{beamercolorbox}
+    \nointerlineskip
+    \begin{beamercolorbox}[ht=0.5\paperheight, wd=\paperwidth]{accent}
+        \hskip\beamer@leftmargin\insertlogo
+        \vskip\beamer@leftmargin
+    \end{beamercolorbox}}
+
+%==============================================================================
+% Define the frametitle template.
+%==============================================================================
+
 \setbeamertemplate{frametitle}{
     \nointerlineskip
     \@tempdima=\paperwidth
     \advance\@tempdima by -\beamer@leftmargin
     \advance\@tempdima by -\beamer@rightmargin
     \begin{beamercolorbox}[wd=\paperwidth]{frametitle}
-        \vskip2px
+        \vskip2pt
         \hskip\beamer@leftmargin
-        \begin{minipage}{\the\@tempdima}
-            \strut\insertframetitle\strut\par
+        \parbox{\@tempdima}{
+            \strut\insertframetitle\par
             \ifx\insertframesubtitle\@empty\else{
                 \usebeamerfont{framesubtitle}
                 \usebeamercolor[fg]{framesubtitle}
-                \insertframesubtitle\strut\par}
-            \fi
-        \end{minipage}
-        \vskip3px
+                \nointerlineskip\strut\insertframesubtitle}
+            \fi}
+        \vskip2pt
     \end{beamercolorbox}
     \ifbeamercolorempty[bg]{accent}{}{
         \nointerlineskip
         \begin{beamercolorbox}[ht=3pt, wd=\paperwidth]{accent}
         \end{beamercolorbox}}}
 
-\setbeamertemplate{footline}{
-    \tikz[overlay, remember picture]
-    \node[opacity=0.3, 
-          name=pageno, 
-          at=(current page.south east),
-          anchor=south east]
-    {\insertframenumber/\inserttotalframenumber};}
+%==============================================================================
+% At the beginning of every section add a blank, unnumebered title frame with
+% the section title and nothing else. Skip this if the section is before the
+% first slide (e.g. for an "introduction" section).
+%==============================================================================
 
-\newcommand{\footright}[1]{
-    \tikz[overlay, remember picture]
-    \node[opacity=0.3, 
-          at=(pageno.west),
-          anchor=east, xshift=4pt, yshift=0.5pt]{#1};}
+\AtBeginSection[]{%
+    \ifnum\theframenumber>0
+        {
+        \setbeamertemplate{footline}{}
+        \setbeamercolor{background canvas}{bg=frametitle.bg}
+        \begin{frame}[noframenumbering, c]
+            \begin{center}
+            \usebeamercolor[fg]{frametitle}
+            \Huge \insertsection
+            \end{center}
+        \end{frame}}
+    \else\fi}
 
-\newcommand{\foot}[1]{
-    \only<1->{
-    \tikz[overlay, remember picture]
-    \node[opacity=0.5, 
-          at=(current page.south west),
-          align=left,
-          xshift=\beamer@leftmargin,
-          inner xsep=0pt,
-          anchor=south west]
-    {\usebeamerfont{footline}{#1}};}}
+%==============================================================================
+% This defines code to deal with the counting frames up to the appendix such
+% that the total page count only includes frames before the appendix, but frame
+% numbers are displayed as e.g. "10/5" after the appendix begins.
+%==============================================================================
 
-% template for the title page
-\setbeamertemplate{title page}{
-    \nointerlineskip
-    \vskip-6px
-    \@tempdima=\paperwidth
-    \advance\@tempdima by -\beamer@leftmargin
-    \advance\@tempdima by -\beamer@rightmargin
-    \begin{beamercolorbox}[wd=\paperwidth]{title}
-        \vskip20px
-        \hskip\beamer@leftmargin
-        \begin{minipage}{\the\@tempdima}
-            \raggedright
-            {\usebeamerfont{title}\inserttitle}\par
-            \ifx\insertsubtitle\@empty\else
-            {\usebeamerfont{subtitle}\insertsubtitle}\par
-            \fi
-            \vskip1em\par
-            {\usebeamerfont{author}\insertauthor}\par
-            {\usebeamerfont{institute}\insertauthornote}\par
-            {\usebeamerfont{institute}\insertinstitute}\par
-            \vskip1em\par
-            {\usebeamerfont{date}\insertdate}\par
-        \end{minipage}
-        \vskip30px
-    \end{beamercolorbox}
-    \ifbeamercolorempty[bg]{accent2}{}{
-        \nointerlineskip
-        \begin{beamercolorbox}[ht=3pt, wd=\paperwidth]{accent2}
-        \end{beamercolorbox}}
-    \ifbeamercolorempty[bg]{accent}{}{
-        \nointerlineskip
-        \begin{beamercolorbox}[ht=\paperheight, wd=\paperwidth]{accent}
-        \end{beamercolorbox}}
-    %\begin{tikzpicture}[remember picture, overlay]
-    %    \node[anchor=south west, xshift=\beamer@leftmargin,
-    %                             yshift=\beamer@leftmargin] 
-    %    at (current page.south west) {\includegraphics[trim=31px 0 0 0, clip=true, height=1.2cm]{figures/cambridge}};
-    %\end{tikzpicture}
-}
+\let\@oldappendix\appendix
+\def\theend{-1}
+\def\appendix{\edef\theend{\theframenumber}\@oldappendix}
 
-\makeatletter
-\let\appendixorig\appendix
-\def\mainend{-1}
-
-\def\appendix{
-  \edef\mainend{\theframenumber}
-  \immediate\write\@auxout{\string\global\string\@namedef{mainendframenumber}{\mainend}}
-  \appendixorig
-}
-
-\def\pageatend{
-  \ifnum\mainend>0%
-  \immediate\write\@auxout{\string\global\string\@namedef{inserttotalframenumber}{\mainend}}%
-  \immediate\write\@auxout{\string\@writefile{nav}{\noexpand \headcommand {%
-        \noexpand \def\noexpand \inserttotalframenumber{\mainend}}}}%
-  \else
-  \fi
-}
-
-\AtEndDocument{\pageatend}
-\makeatother
-
+\AtEndDocument{
+    \ifnum\theend>0%
+        \immediate\write\@auxout{%
+            \string\global\string\@namedef{inserttotalframenumber}{\theend}%
+            \string\@writefile{nav}{\noexpand\headcommand{%
+            \noexpand\def\noexpand\inserttotalframenumber{\theend}}}}%
+    \else\fi}
